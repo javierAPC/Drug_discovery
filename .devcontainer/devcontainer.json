@@ -1,0 +1,32 @@
+{
+    "name": "EGFR Drug Discovery",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-toolsai.jupyter",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "Codeium.codeium",
+                "njpwerner.autodocstring",
+                "eamodio.gitlens"
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": false,
+                "python.linting.flake8Enabled": true,
+                "editor.formatOnSave": true,
+                "editor.codeActionsOnSave": {
+                    "source.organizeImports": true
+                }
+            }
+        }
+    },
+    "forwardPorts": [8888],
+    "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+    "remoteUser": "vscode"
+}
