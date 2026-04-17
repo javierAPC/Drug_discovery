@@ -3,6 +3,7 @@ chembl_webresource_client
 rdkit-pypi
 pandas
 numpy<2.0
+statsmodels
 
 # Machine learning & deep learning
 torch
