@@ -5,3 +5,4 @@ data/raw/
 *.pt
 *.ckpt
 .env
+EGFR_DrugDiscovery_Guide.html
