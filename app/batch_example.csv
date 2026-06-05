@@ -1,0 +1,4 @@
+name,smiles
+Lapatinib,CS(=O)(=O)CCNCc1ccc(-c2ccc3ncnc(Nc4ccc(OCc5cccc(F)c5)c(Cl)c4)c3c2)o1
+Neratinib,C=CC(=O)Nc1cccc(Nc2ncnc3cc(Oc4ccc(N5CCN(C)CC5)cc4)c(Cl)cc23)c1
+Canertinib,C=CC(=O)Nc1ccc2ncnc(Nc3ccc(F)c(Cl)c3)c2c1

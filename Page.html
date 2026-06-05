@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGFR Drug Discovery — Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@300;400;500;600&family=Geist:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" rel="stylesheet">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: #dffaec;
+    color: #1e2d3d;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  
+  /* Remove dark overlays (noise, dot grid) */
+  body::before,
+  body::after {
+    display: none;
+  }
+  
+  /* ===== TYPOGRAPHY & LINKS ===== */
+  h1, h2, h3, h4, .serif {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  
+  code, .mono, .mono-val, .mono-dim, .badge, .stat-val, .bm-table th, .sec-tag, .pipe-tag, .ref-n, .lim-icon {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  a {
+    color: #1d4ed8;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  a:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+  
+  /* ===== LAYOUT ===== */
+  .wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+  
+  section {
+    padding: 56px 0;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  /* ===== NAVIGATION (light) ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 28px;
+  }
+  
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: #1d4ed8;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .nav-logo::before {
+    content: '⬡';
+    font-size: 14px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 28px;
+  }
+  
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: #4b5563;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  
+  .nav-links a:hover {
+    color: #1d4ed8;
+  }
+  
+  /* ===== HERO SECTION ===== */
+  .hero {
+    padding: 72px 0 56px;
+    position: relative;
+  }
+  
+  .hero-glow {
+    display: none; /* remove dark glow */
+  }
+  
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: #1d4ed8;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .hero-eyebrow::after {
+    content: '';
+    flex: 0 0 48px;
+    height: 1px;
+    background: #1d4ed8;
+  }
+  
+  .hero h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: #0f172a;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  
+  .hero h1 em {
+    color: #1d4ed8;
+    font-style: normal;
+  }
+  
+  .hero-lead {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.65;
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+  
+  /* ===== STATS (metric cards) ===== */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 64px;
+  }
+  
+  .stat {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-top: 3px solid #1d4ed8;
+    border-radius: 0 0 6px 6px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  
+  .stat-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 500;
+    color: #0f172a;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  
+  .stat-label {
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  
+  /* ===== SECTION HEADERS ===== */
+  .sec-header {
+    margin-bottom: 32px;
+  }
+  
+  .sec-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #1d4ed8;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .sec-tag::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: #1d4ed8;
+  }
+  
+  .sec-tag-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #94a3b8;
+    margin-left: auto;
+  }
+  
+  .sec-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: #0f172a;
+    line-height: 1.2;
+  }
+  
+  /* ===== PIPELINE STEPS (cards) ===== */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .pipe-step {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  
+  .pipe-step:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  }
+  
+  .pipe-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    background: #1d4ed8;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .pipe-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+  
+  .pipe-desc {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.55;
+  }
+  
+  .pipe-tag {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #1d4ed8;
+    letter-spacing: 0.08em;
+  }
+  
+  /* ===== TABLES (benchmark) ===== */
+  .bm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 24px 0;
+  }
+  
+  .bm-table th {
+    background: #f8fafc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #475569;
+    text-transform: uppercase;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .bm-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e2d3d;
+    vertical-align: middle;
+  }
+  
+  .bm-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .bm-table tr:hover td {
+    background: #f8fafc;
+  }
+  
+  .bm-table tr.highlight td {
+    background: #eff6ff;
+  }
+  
+  .bm-table tr.highlight td:first-child {
+    border-left: 2px solid #1d4ed8;
+  }
+  
+  .mono-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #0f172a;
+    font-weight: 500;
+  }
+  
+  .mono-dim {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #64748b;
+  }
+  
+  /* badges */
+  .badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  
+  .badge-this {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+  
+  .badge-lit {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+  
+  /* ===== FEATURE CARDS ===== */
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 16px;
+  }
+  
+  .feat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .feat-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #1d4ed8;
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+  
+  .feat-bits {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  
+  .feat-raw {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 12px;
+  }
+  
+  .feat-filter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #475569;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  
+  .feat-use {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.55;
+  }
+  
+  /* ===== SHAP CARDS ===== */
+  .shap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+  
+  .shap-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  
+  .shap-bit {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #1d4ed8;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  .shap-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  
+  .shap-dir {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 4px;
+  }
+  
+  .dir-up {
+    color: #15803d;
+  }
+  
+  .dir-down {
+    color: #dc2626;
+  }
+  
+  .shap-bio {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.55;
+  }
+  
+  /* ===== FIGURES GALLERY ===== */
+  .fig-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  
+  .fig-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .fig-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    border-color: #bfdbfe;
+  }
+  
+  .fig-preview {
+    background: #f1f5f9;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .fig-placeholder {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  
+  /* Ensure the anchor fills the preview area */
+.fig-preview a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 0;      /* removes extra space below image */
+}
+
+  .fig-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;      /* removes inline gaps */
+  }
+  
+  .fig-meta {
+    padding: 14px 16px;
+  }
+  
+  .fig-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: #1d4ed8;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  
+  .fig-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+  
+  .fig-desc {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.55;
+  }
+  
+  /* ===== LIMITATIONS ===== */
+  .lim-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .lim-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  
+  .lim-icon {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: #b45309;
+    background: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+  }
+  
+  .lim-text {
+    font-size: 13px;
+    color: #334155;
+    line-height: 1.6;
+  }
+  
+  .lim-text strong {
+    color: #0f172a;
+  }
+  
+  /* ===== REFERENCES ===== */
+  .ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .ref-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 14px 18px;
+    display: flex;
+    gap: 14px;
+    align-items: baseline;
+    font-size: 13px;
+  }
+  
+  .ref-n {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: #1d4ed8;
+    min-width: 28px;
+  }
+  
+  .ref-body {
+    color: #475569;
+    line-height: 1.6;
+  }
+  
+  .ref-body strong {
+    color: #0f172a;
+  }
+  
+  /* ===== FOOTER ===== */
+  footer {
+    border-top: 1px solid #e2e8f0;
+    padding: 32px 0;
+    margin-top: 24px;
+  }
+  
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #64748b;
+    letter-spacing: 0.06em;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+  
+  .footer-links a {
+    color: #64748b;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    color: #1d4ed8;
+  }
+  
+  /* ===== ADDITIONAL UTILITIES ===== */
+  .info-note {
+    background: #eff6ff;
+    border-left: 3px solid #3b82f6;
+    border-radius: 4px;
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #1e40af;
+    margin: 16px 0;
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .pipeline {
+      grid-template-columns: 1fr;
+    }
+    .feat-grid {
+      grid-template-columns: 1fr;
+    }
+    .shap-grid {
+      grid-template-columns: 1fr;
+    }
+    .fig-grid {
+      grid-template-columns: 1fr;
+    }
+    .nav-links {
+      display: none;
+    }
+    .wrap {
+      padding: 0 20px;
+    }
+    section {
+      padding: 40px 0;
+    }
+  }
+  
+  /* ===== scrollbar ===== */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">EGFR · Drug Discovery ML</div>
+    <div class="nav-links">
+      <a href="#pipeline">Pipeline</a>
+      <a href="#results">Results</a>
+      <a href="#shap">SHAP</a>
+      <a href="#figures">Figures</a>
+      <a href="#refs">References</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-eyebrow">CHEMBL203 · EGFR · Lung Cancer</div>
+    <h1>EGFR Inhibitor<br><em>Bioactivity Prediction</em></h1>
+    <p class="hero-lead">
+      An end-to-end machine learning pipeline for predicting EGFR kinase inhibitor potency
+      from molecular structure — trained on 9,876 ChEMBL compounds, benchmarked against
+      recent literature, and validated with Butina cluster-based cross-validation.
+    </p>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-val">0.724 ± 0.008</div>
+      <div class="stat-label">R² · Butina 5-fold CV · XGBoost</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">9,876</div>
+      <div class="stat-label">EGFR compounds · CHEMBL203</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">339</div>
+      <div class="stat-label">ECFP6 bits after variance filter</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">7</div>
+      <div class="stat-label">Notebooks · full pipeline</div>
+    </div>
+  </div>
+</div>
+
+<!-- PIPELINE -->
+<section id="pipeline">
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Methodology <span class="sec-tag-num">01</span></div>
+      <h2 class="sec-title">Pipeline Overview</h2>
+    </div>
+    <div class="pipeline">
+      <div class="pipe-step">
+        <div class="pipe-num">1</div>
+        <div>
+          <div class="pipe-title">Data Collection & Cleaning</div>
+          <div class="pipe-desc">ChEMBL API query (CHEMBL203, IC50, binding assays). Quality filters: pChEMBL not null, no duplicates, exact measurements only. InChI key deduplication with variable-measurement averaging.</div>
+          <div class="pipe-tag">→ 9,876 unique compounds</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">2</div>
+        <div>
+          <div class="pipe-title">Exploratory Analysis</div>
+          <div class="pipe-desc">Lipinski Ro5 profile, pIC50 distribution, chemical space visualisation (MW vs LogP). Mann-Whitney U tests for descriptor significance. FDA drugs marked as reference.</div>
+          <div class="pipe-tag">→ 6 EDA figures</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">3</div>
+        <div>
+          <div class="pipe-title">Molecular Featurization</div>
+          <div class="pipe-desc">Three complementary representations: ECFP6 (339 bits), MACCS keys (1115), RDKit 2D descriptors (164). VarianceThreshold for binary bits; Pearson correlation filter for continuous descriptors.</div>
+          <div class="pipe-tag">→ 3 feature matrices saved</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">4</div>
+        <div>
+          <div class="pipe-title">Butina CV Baseline</div>
+          <div class="pipe-desc">Butina clustering at Tanimoto sim_cutoff=0.6 using <span style="background-color: #dffaec; font-weight: bold; padding: 0 2px; border-radius: 4px;">Morgan</span> fingerprint. 5-fold CV with cluster integrity — test sets contain complete structural clusters never seen in training. RF ablation study across all three feature sets.</div>
+          <div class="pipe-tag">→ Scaffold-aware split established</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">5</div>
+        <div>
+          <div class="pipe-title">Model Comparison & Tuning</div>
+          <div class="pipe-desc">Optuna TPE, 50 trials per model (RF, XGBoost, SVR). Inner 3-fold on fold-1 training data prevents leakage. PyTorch Lightning MLP (3-layer, BatchNorm, Dropout) as DL comparison.</div>
+          <div class="pipe-tag">→ XGBoost best: R² = 0.727</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">6</div>
+        <div>
+          <div class="pipe-title">SHAP Explainability</div>
+          <div class="pipe-desc">TreeExplainer on MACCS-retrained model. MACCS keys chosen over ECFP6 because each bit has a fixed SMARTS definition — directly interpretable without lookup tables.</div>
+          <div class="pipe-tag">→ Pharmacophore alignment confirmed</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">7</div>
+        <div>
+          <div class="pipe-title">Applicability Domain</div>
+          <div class="pipe-desc">Williams plot (leverage) and Tanimoto distance (threshold 0.4). UMAP of full chemical space with FDA drugs marked. Virtual screen of EGFR Ki compounds not in training set.</div>
+          <div class="pipe-tag">→ AD-flagged screen hits</div>
+        </div>
+      </div>
+      <div class="pipe-step">
+        <div class="pipe-num">8</div>
+        <div>
+          <div class="pipe-title">Deployment</div>
+          <div class="pipe-desc">Streamlit prediction app: input any SMILES → predicted pChEMBL + IC50 equivalent + activity class + Lipinski radar + Tanimoto AD check + structural similarity to FDA drugs.</div>
+          <div class="pipe-tag">→ Docker · Huggingface</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Performance <span class="sec-tag-num">02</span></div>
+      <h2 class="sec-title">Benchmark Results</h2>
+    </div>
+
+    <div style="margin-bottom:32px;">
+      <h3 style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase;margin-bottom:12px;">
+        Regression — pChEMBL prediction (Butina 5-fold CV, ECFP6)
+      </h3>
+
+      <table class="bm-table">
+        <tr>
+          <th>Model</th><th>Features</th><th>Split</th>
+          <th>R²</th><th>RMSE</th><th>MAE</th><th>Pearson r</th>
+        </tr>
+
+        <tr>
+          <td><span class="mono-dim">Random Forest (default)</span></td>
+          <td><span class="mono-dim">ECFP6</span></td>
+          <td><span class="mono-dim">Butina 5-fold</span></td>
+          <td><span class="mono-dim">0.707 ±0.014</span></td>
+          <td><span class="mono-dim">0.697</span></td>
+          <td><span class="mono-dim">0.511</span></td>
+          <td><span class="mono-dim">0.841</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="mono-dim">RF (Optuna-tuned)</span></td>
+          <td><span class="mono-val">ECFP6</span></td>
+          <td><span class="mono-val">Butina 5-fold</span></td>
+          <td><span class="mono-val">0.707 ± 0.014</span></td>
+          <td><span class="mono-val">0.696</span></td>
+          <td><span class="mono-val">0.511</span></td>
+          <td><span class="mono-val">0.842</span></td>
+        </tr>
+
+        <tr class="highlight">
+          <td>
+            <strong style="color:var(--bright);">XGBoost (Optuna-tuned)</strong>
+            <span class="badge badge-this" style="margin-left:8px;">Best</span>
+          </td>
+          <td><span class="mono-val">ECFP6</span></td>
+          <td><span class="mono-val">Butina 5-fold</span></td>
+          <td><span class="mono-val">0.724 ± 0.008</span></td>
+          <td><span class="mono-val">0.676</span></td>
+          <td><span class="mono-val">0.495</span></td>
+          <td><span class="mono-val">0.851</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="mono-dim">SVR (Optuna-tuned)</span></td>
+          <td><span class="mono-val">ECFP6</span></td>
+          <td><span class="mono-val">Butina 5-fold</span></td>
+          <td><span class="mono-val">0.724 ± 0.011</span></td>
+          <td><span class="mono-val">0.676</span></td>
+          <td><span class="mono-val">0.495</span></td>
+          <td><span class="mono-val">0.851</span></td>
+        </tr>
+
+        <tr>
+          <td><span class="mono-dim">MLP (Lightning, 3-layer)</span></td>
+          <td><span class="mono-val">ECFP6</span></td>
+          <td><span class="mono-val">Butina 5-fold</span></td>
+          <td><span class="mono-val">0.703 ± 0.013</span></td>
+          <td><span class="mono-val">0.701</span></td>
+          <td><span class="mono-val">0.515</span></td>
+          <td><span class="mono-val">0.841</span></td>
+        </tr>
+
+        <tr style="opacity:.65;">
+          <td>
+            SVR <span class="badge badge-lit">Literature</span><br>
+            <span style="font-size:11px;color:var(--dim);">Vignaux et al. 2023 · AChE</span>
+          </td>
+          <td><span class="mono-dim">ECFP6</span></td>
+          <td><span class="mono-dim">5-fold random</span></td>
+          <td><span class="mono-val">0.810</span></td>
+          <td><span class="mono-val">0.730</span></td>
+          <td><span class="mono-val">0.550</span></td>
+          <td><span class="mono-val">0.760</span></td>
+        </tr>
+
+        <tr style="opacity:.65;">
+          <td>
+            GNN <span class="badge badge-lit">Literature</span><br>
+            <span style="font-size:11px;color:var(--dim);">DeepEGFR · Malik et al. 2025</span>
+          </td>
+          <td><span class="mono-dim">Graph + FP</span></td>
+          <td><span class="mono-dim">80/20 random</span></td>
+          <td><span class="mono-dim">—</span></td>
+          <td><span class="mono-dim">—</span></td>
+          <td><span class="mono-dim">—</span></td>
+          <td><span class="mono-dim">macro-F1 ≈ 0.94</span></td>
+        </tr>
+      </table>
+
+      <p style="font-size:11.5px;color:var(--dim);margin-top:10px;line-height:1.6;">
+        <strong>XGBoost</strong> and SVR achieve identical mean R² (0.724). XGBoost was selected as the final model for three technical reasons: 
+        lower variance across folds (0.008 vs 0.011), faster SHAP explainability, and better scalability with large datasets compared to SVR. 
+        The gap relative to Vignaux et al. (0.724 vs 0.810) is explained by the stricter Butina split — random cross‑validation allows near‑duplicate 
+        compounds in both training and test sets, inflating R² by an estimated 15–30% (Wu et al., 2018, MoleculeNet). Different targets 
+        (EGFR vs AChE) also limit direct comparability.
+      </p>
+    </div>
+  </div>
+
+    <!-- Feature sets -->
+    <h3 style="font-family:var(--mono);font-size:11px;letter-spacing:.15em;color:var(--dim);text-transform:uppercase;margin-bottom:16px;">Feature Representations</h3>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-name">ECFP6 · Morgan r=3</div>
+        <div class="feat-bits">339</div>
+        <div class="feat-raw">from 2,048 raw bits</div>
+        <div class="feat-filter">VarianceThreshold(0.05)</div>
+        <div class="feat-use">Primary ML features. Field standard for QSAR benchmarking (Riniker & Landrum, 2013).</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-name">MACCS Keys</div>
+        <div class="feat-bits">115</div>
+        <div class="feat-raw">from 167 raw bits</div>
+        <div class="feat-filter">VarianceThreshold(0.05)</div>
+        <div class="feat-use">SHAP interpretation only. Each bit has a fixed SMARTS definition — directly maps to named substructures.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-name">RDKit 2D Descriptors</div>
+        <div class="feat-bits">164</div>
+        <div class="feat-raw">from 208 continuous values</div>
+        <div class="feat-filter">Pearson correlation &gt; 0.95 removed</div>
+        <div class="feat-use">ADMET-relevant physicochemistry.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHAP -->
+
+<section id="shap">
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Explainability <span class="sec-tag-num">03</span></div>
+      <h2 class="sec-title">SHAP Analysis — MACCS Keys</h2>
+    </div>
+    <p style="font-size:13.5px;color:var(--dim);line-height:1.7;max-width:680px;margin-bottom:28px;">
+      TreeExplainer (exact Shapley values) applied to XGBoost retrained on MACCS features.
+      The model captures chemically meaningful SAR, with both favorable and unfavorable
+      motifs emerging in patterns consistent with EGFR binding mechanisms.
+    </p>
+
+<!-- groups -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+
+  <div class="shap-card">
+    <div class="shap-bit">Hinge region — Met793</div>
+    <div class="shap-name" style="margin-bottom:10px;">H-bond donor motifs</div>
+    <div style="font-size:12px;color:var(--dim);line-height:1.6;">
+      MACCS 131 (H-bond donors, OH/NH count &gt;1) ·
+      MACCS 84 (NH₂ group) ·
+      MACCS 53 (two heteroatoms with H separated by 4 atoms)<br><br>
+      Mixed SHAP distribution: presence often increases activity but with
+      a significant negative tail, indicating context-dependent effects
+      rather than uniformly beneficial contributions.
+    </div>
+  </div>
+
+  <div class="shap-card">
+    <div class="shap-bit">Aromatic stacking & scaffolding</div>
+    <div class="shap-name" style="margin-bottom:10px;">Ring systems</div>
+    <div style="font-size:12px;color:var(--dim);line-height:1.6;">
+      MACCS 98 (6-membered heterocycles) ·
+      MACCS 101 (aromatic amine ArNH₂) ·
+      MACCS 62 (ring assembly) ·
+      MACCS 115 (ring)<br><br>
+      Aromatic features are generally beneficial, but contributions vary:
+      heterocycles show strong positive effects, while other ring motifs act
+      more as structural enablers.
+    </div>
+  </div>
+
+  <div class="shap-card">
+    <div class="shap-bit">Covalent warhead — Cys797</div>
+    <div class="shap-name" style="margin-bottom:10px;">Alkene motifs</div>
+    <div style="font-size:12px;color:var(--dim);line-height:1.6;">
+      MACCS 34 (CH₂=CH– alkene motif)<br><br>
+      Absence strongly decreases activity, while presence yields only moderate
+      gains, suggesting electrophilic motifs are important but not dominant
+      across all compounds.
+    </div>
+  </div>
+
+  <div class="shap-card">
+    <div class="shap-bit">Linker geometry & penalties</div>
+    <div class="shap-name" style="margin-bottom:10px;">Spacing & motifs</div>
+    <div style="font-size:12px;color:var(--dim);line-height:1.6;">
+      MACCS 138 (heteroatom–CH₂– group count &gt;1) ·
+      MACCS 52 (NN motif) ·
+      MACCS 38 (NC(C)N)<br><br>
+      Linker-related features define spatial arrangement: some improve activity,
+      while others act as anti-pharmacophoric motifs, penalizing predictions.
+    </div>
+  </div>
+
+</div>
+
+<!-- Summary note -->
+<div style="padding:13px 16px;background:var(--s1);border:1px solid var(--border);
+            border-radius:5px;font-size:12.5px;color:var(--dim);line-height:1.7;">
+  SHAP patterns show that the model encodes both positive drivers (e.g. MACCS 98, 138)
+  and penalizing features (e.g. MACCS 38, 52), with several motifs exhibiting
+  context-dependent behavior. This indicates the model captures realistic
+  structure–activity trade-offs rather than simple correlations.
+</div>
+
+  </div>
+</section>
+
+
+
+<!-- FIGURES -->
+<section id="figures">
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Visualisations <span class="sec-tag-num">04</span></div>
+      <h2 class="sec-title">Key Figures</h2>
+    </div>
+    <div class="fig-grid">
+      <!-- Figure 1 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/eda/chemical_space_lipinski.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/eda/chemical_space_lipinski.png" alt="Chemical space">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 02 · EDA</div>
+          <div class="fig-title">Lipinski Chemical Space</div>
+          <div class="fig-desc">MW vs LogP scatter of all 9,876 compounds coloured by activity class. Red stars mark 5 FDA-approved EGFR TKIs (Erlotinib, Gefitinib, Afatinib, Osimertinib, Dacomitinib).</div>
+        </div>
+      </div>
+      <!-- Figure 2 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/cv/part5_r2_comparison.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/cv/part5_r2_comparison.png" alt="R2 comparison">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 09 · CV</div>
+          <div class="fig-title">Model Comparison — R² with Error Bars</div>
+          <div class="fig-desc">Horizontal bar chart comparing RF, XGBoost, SVR and MLP under identical Butina 5-fold CV conditions. Red dashed line = Vignaux 2023 SVR literature baseline (R² = 0.81).</div>
+        </div>
+      </div>
+      <!-- Figure 3 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/shap/part6_shap_beeswarm.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/shap/part6_shap_beeswarm.png" alt="SHAP beeswarm">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 11 · SHAP</div>
+          <div class="fig-title">SHAP Beeswarm — Top 20 MACCS Keys</div>
+          <div class="fig-desc">Each dot = one compound. Red = substructure present, blue = absent. X-axis = contribution to predicted pChEMBL. MACCS 98 (N-heterocycle aromatic ring) dominates.</div>
+        </div>
+      </div>
+      <!-- Figure 4 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/shap/part6_similarity_maps.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/shap/part6_similarity_maps.png" alt="Similarity maps">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 13 · SHAP</div>
+          <div class="fig-title">Atom-level Importance — FDA Drugs</div>
+          <div class="fig-desc">4 FDA-approved EGFR inhibitors with atoms coloured by Morgan fingerprint importance. Green = high model weight. Identifies the pharmacophoric core learned by XGBoost.</div>
+        </div>
+      </div>
+      <!-- Figure 5 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/eda/part7_umap_chemical_space.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/eda/part7_umap_chemical_space.png" alt="UMAP">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 16 · AD</div>
+          <div class="fig-title">UMAP Chemical Space</div>
+          <div class="fig-desc">Full dataset in 2D ECFP6 space (Jaccard metric). Left panel: coloured by pChEMBL value. Right panel: coloured by activity class. FDA drugs as red stars. Test fold outlined.</div>
+        </div>
+      </div>
+      <!-- Figure 6 -->
+      <div class="fig-card">
+        <div class="fig-preview">
+          <a href="figs/ad/virtual_screen.png" class="glightbox" data-gallery="figure-gallery">
+            <img src="figs/ad/virtual_screen.png" alt="Virtual screen">
+          </a>
+        </div>
+        <div class="fig-meta">
+          <div class="fig-num">Figure 18 · AD</div>
+          <div class="fig-title">Virtual Screen Results</div>
+          <div class="fig-desc">Top 20 predicted actives from EGFR Ki candidate screen. Blue = inside Tanimoto AD (reliable). Red = outside AD (extrapolation). Diamond markers show experimental pChEMBL where available.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITATIONS -->
+<section>
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Caveats <span class="sec-tag-num">05</span></div>
+      <h2 class="sec-title">Limitations</h2>
+    </div>
+    <div class="lim-list">
+      <div class="lim-item">
+        <div class="lim-icon">L1</div>
+        <div class="lim-text"><strong>Single assay type.</strong> Trained on IC50 binding assay data only. Predictions for cell-based (functional) assays or different measurement types (Ki, EC50) involve assay-type assumptions that are not validated here.</div>
+      </div>
+      <div class="lim-item">
+        <div class="lim-icon">L2</div>
+        <div class="lim-text"><strong>Wild-type EGFR only.</strong> T790M and L858R resistance mutations are not modelled. These require separate datasets (CHEMBL3736, CHEMBL3214805). Osimertinib's activity against T790M is not within the model's applicability domain.</div>
+      </div>
+      <div class="lim-item">
+        <div class="lim-icon">L3</div>
+        <div class="lim-text"><strong>2D features only.</strong> ECFP6 and MACCS encode molecular topology without 3D geometry. Stereoisomers with the same graph but different spatial arrangements may receive identical predictions.</div>
+      </div>
+      <div class="lim-item">
+        <div class="lim-icon">L4</div>
+        <div class="lim-text"><strong>AD is approximate.</strong> Both leverage (h*) and Tanimoto thresholds are heuristics. The optimal threshold is dataset-dependent and not calibrated here against experimental hit rates.</div>
+      </div>
+      <div class="lim-item">
+        <div class="lim-icon">L5</div>
+        <div class="lim-text"><strong>No experimental validation.</strong> Virtual screen hits are computational predictions only. Wet-lab confirmation (biochemical IC50 assay) is required before drawing biological conclusions.</div>
+      </div>
+      <div class="lim-item">
+        <div class="lim-icon">L6</div>
+        <div class="lim-text"><strong>Bias towards active class.</strong> Despite the use of methods to address class imbalance, the model presents a bias towards the active class; to be more precise, it tends to overestimate the pChEMBL of the targets.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERENCES -->
+<section id="refs">
+  <div class="wrap">
+    <div class="sec-header">
+      <div class="sec-tag">Literature <span class="sec-tag-num">06</span></div>
+      <h2 class="sec-title">References</h2>
+    </div>
+    <div class="ref-list">
+      <div class="ref-item">
+        <div class="ref-n">[1]</div>
+        <div class="ref-body"><strong>Malik et al. (2025)</strong> — DeepEGFR: a graph neural network for bioactivity classification of EGFR inhibitors. <em>Scientific Reports</em> 15, 38236. <a href="https://doi.org/10.1038/s41598-025-22126-8" target="_blank">DOI: 10.1038/s41598-025-22126-8</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[2]</div>
+        <div class="ref-body"><strong>Vignaux et al. (2023)</strong> — Validation of acetylcholinesterase inhibition ML models for multiple species. <em>Chem. Res. Toxicol.</em> 36(2):188–201. <a href="https://doi.org/10.1021/acs.chemrestox.2c00283" target="_blank">DOI: 10.1021/acs.chemrestox.2c00283</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[3]</div>
+        <div class="ref-body"><strong>Wu et al. (2018)</strong> — MoleculeNet: a benchmark for molecular machine learning. <em>Chem. Sci.</em> 9:513–530. <a href="https://doi.org/10.1039/C7SC02664A" target="_blank">DOI: 10.1039/C7SC02664A</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[4]</div>
+        <div class="ref-body"><strong>Riniker & Landrum (2013)</strong> — Open-source platform to benchmark fingerprints for ligand-based virtual screening. <em>J Cheminform</em> 5:26. <a href="https://doi.org/10.1186/1758-2946-5-26" target="_blank">DOI: 10.1186/1758-2946-5-26</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[5]</div>
+        <div class="ref-body"><strong>Amelia et al. (2022)</strong> — Structural insight and development of EGFR tyrosine kinase inhibitors. <em>Molecules</em> 27(3):819. <a href="https://doi.org/10.3390/molecules27030819" target="_blank">DOI: 10.3390/molecules27030819</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[6]</div>
+        <div class="ref-body"><strong>Zhao et al. (2022)</strong> — Emerging strategies to overcome resistance to third-generation EGFR inhibitors. <em>J Hematol Oncol</em> 15:73. <a href="https://doi.org/10.1186/s13045-022-01311-6" target="_blank">DOI: 10.1186/s13045-022-01311-6</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[7]</div>
+        <div class="ref-body"><strong>Landrum, G. (2023)</strong> — Variability of x-fold cross validation results. <em>RDKit blog</em>. <a href="https://greglandrum.github.io/rdkit-blog/posts/2023-08-13-xval-variability1.html" target="_blank">https://greglandrum.github.io/rdkit-blog/posts/2023-08-13-xval-variability1.html</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[8]</div>
+        <div class="ref-body"><strong>Landrum, G. (2024)</strong> — The problem(s) with scaffold splits, part 1. <em>RDKit blog</em>. <a href="https://greglandrum.github.io/rdkit-blog/posts/2024-05-31-scaffold-splits-and-murcko-scaffolds1.html" target="_blank">https://greglandrum.github.io/rdkit-blog/posts/2024-05-31-scaffold-splits-and-murcko-scaffolds1.html</a></div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-n">[9]</div>
+        <div class="ref-body"><strong>Data Professor</strong> — drugdiscovery This proyect is base on this work. <em>GitHub repository</em>. <a href="https://github.com/dataprofessor/drugdiscovery" target="_blank">https://github.com/dataprofessor/drugdiscovery</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <span>EGFR Drug Discovery ML · CHEMBL203 · 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/javierAPC/Drug_discovery" target="_blank">GitHub</a>
+      <a href="https://huggingface.co/spaces/JavierPC/EGFR_Drug_discovery" target="_blank">HuggingFace App</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- Better FIGURES  -->
+
+  <!-- GLightbox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const lightbox = GLightbox({
+        selector: '.glightbox',
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        autoplayVideos: false,
+        moreLength: 0
+      });
+    });
+  </script>
+</body>
+</html>

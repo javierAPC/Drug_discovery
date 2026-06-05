@@ -8,7 +8,10 @@ statsmodels
 # Machine learning & deep learning
 torch
 pytorch-lightning
+lightning
 scikit-learn
+xgboost
+optuna
 
 # Visualization
 matplotlib
@@ -16,7 +19,8 @@ seaborn
 
 # Explainability & domain
 shap
-applicability_domain  # opcional, si usas alguna librería específica
+applicability_domain  
+umap-learn
 
 # Utilities
 tqdm

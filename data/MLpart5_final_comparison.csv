@@ -1,0 +1,7 @@
+Model,Features,Split,R² (mean±std),RMSE,MAE,Pearson r
+RF (tuned),ECFP6,Butina 5-fold,0.707 ± 0.014,0.696,0.511,0.842
+XGBoost (tuned),ECFP6,Butina 5-fold,0.724 ± 0.008,0.676,0.495,0.851
+SVR (tuned),ECFP6,Butina 5-fold,0.724 ± 0.011,0.676,0.495,0.851
+MLP (Lightning),ECFP6,Butina 5-fold,0.703 ± 0.013,0.701,0.515,0.841
+── Literature (different target/dataset) ──,,,,,,
+"SVR (Vignaux 2023, AChE)",ECFP6,5-fold CV,0.810,0.730,0.550,0.760

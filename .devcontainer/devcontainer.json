@@ -29,9 +29,10 @@
     "forwardPorts": [
         8888
     ],
-    "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt",
+    "postCreateCommand": "pip install --upgrade pip && pip install uv && uv pip install --system -r requirements.txt",
     "remoteUser": "vscode",
     "remoteEnv": {
-        "VSCODE_FORWARD_PORTS_AUTO": "false"
+        "VSCODE_FORWARD_PORTS_AUTO": "false",
+        "PYTHONPATH": "${containerWorkspaceFolder}"
     }
 }

@@ -2,6 +2,7 @@
 __pycache__/
 data/raw/
 *.pkl
+!app/best_model_part5.pkl
 *.pt
 *.ckpt
 .env

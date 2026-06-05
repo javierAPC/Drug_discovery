@@ -1,5 +1,0 @@
-Feature set,n_features,AUC mean,AUC std,BalancedAcc,MCC,Macro F1
-ECFP6,339,0.973,±0.007,0.838,0.734,0.865
-MACCS,114,0.967,±0.011,0.796,0.683,0.836
-RDKit_2D,163,0.968,±0.006,0.767,0.663,0.820
-GNN (DeepEGFR 2025),—,—,—,—,—,~0.94
