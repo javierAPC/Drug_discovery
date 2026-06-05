@@ -33,7 +33,7 @@ Input any SMILES string to get:
 
 A full results page with figures, benchmark tables and SHAP interpretation
 is available at:
-**[📊 Results Page](https://github.com/javierAPC/Drug_discovery)**
+**[📊 Results Page](https://javierapc.github.io/Drug_discovery/)**
 
 
 ## Biological Context
@@ -154,7 +154,7 @@ Top predictive features:
 
 > **ECFP6 for performance, MACCS for interpretation:** this separation reflects the documented performance–interpretability tradeoff in fingerprint benchmarks (Riniker & Landrum, 2013). MACCS typically underperforms ECFP on virtual screening tasks but its fixed bit definitions enable unambiguous SHAP interpretation.
 
-In the SHAP section of the **[Results Page](https://github.com/javierAPC/Drug_discovery/#shap)** theres a more thruorogh examination of the most influencial bits.
+In the SHAP section of the **[Results Page](https://javierapc.github.io/Drug_discovery/#shap)** theres a more thruorogh examination of the most influencial bits.
 
 
 ### Applicability Domain (Part 7)
