@@ -205,7 +205,6 @@ The gap vs Vignaux (0.727 vs 0.810) is expected: Butina CV tests structural gene
 | Similarity maps | `figures/shap/fig13_similarity_maps.png` | Atom-level importance on 4 FDA drugs |
 | UMAP chemical space | `figures/ad/fig16_umap_chemical_space.png` | Full dataset in 2D, train/test/FDA drugs |
 | Williams plot | `figures/ad/fig15_williams_plot.png` | Leverage vs standardised residuals |
-| Virtual screen | `figures/ad/fig18_virtual_screen.png` | Top predicted actives with AD flags |
 
 ---
 
