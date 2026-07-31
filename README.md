@@ -235,7 +235,7 @@ docker run -p 8501:8501 egfr-predictor
 ```
 
 > A live version is deployed on
-> [Hugging Face Spaces](https://huggingface.co/spaces/tu-usuario/egfr-predictor)
+> [Hugging Face Spaces](https://huggingface.co/spaces/JavierPC/egfr-predictor)
 > — no installation required.
 
 ---
